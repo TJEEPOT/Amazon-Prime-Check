@@ -22,7 +22,7 @@ Since Amazon has no public API for consumer Prime status, the script mimics a lo
 - The following Python packages:
 
 ```bash
-pip install requests beautifulsoup4
+pip install requests beautifulsoup4 python-dotenv
 ```
 
 - A browser extension to export cookies in Netscape format, such as **[Get cookies.txt LOCALLY](https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc)** (Chrome / Firefox)
@@ -50,12 +50,23 @@ pip install requests beautifulsoup4
 
 ### 3. Configure the Script
 
-Open `prime_check.py` and update the config section near the top:
+Copy the example environment file and fill in your webhook URL:
+
+```bash
+cp .env.example .env
+```
+
+Then open `.env` and replace the placeholder with your real webhook URL:
+
+```env
+DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN
+```
+
+If you'd also like to use `amazon.com` instead of `amazon.co.uk`, or change the cookie file path, edit the config block near the top of `prime_check.py`:
 
 ```python
-COOKIE_FILE        = "amazon_cookies.txt"          # Path to your exported cookies
-AMAZON_BASE        = "https://www.amazon.co.uk"    # Or https://www.amazon.com
-DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN"
+COOKIE_FILE = "amazon_cookies.txt"        # Path to your exported cookies
+AMAZON_BASE = "https://www.amazon.co.uk"  # Or https://www.amazon.com
 ```
 
 ### 4. Run It
@@ -96,6 +107,8 @@ Open your crontab with `crontab -e` and add:
 amazon-prime-checker/
 ├── prime_check.py        # Main script
 ├── amazon_cookies.txt    # Your exported cookies (DO NOT commit this)
+├── .env                  # Your secrets — webhook URL (DO NOT commit this)
+├── .env.example          # Template to copy for new setups
 ├── .gitignore
 └── README.md
 ```
@@ -104,10 +117,11 @@ amazon-prime-checker/
 
 ## .gitignore
 
-Make sure you never accidentally commit your cookies file:
+Make sure you never accidentally commit your cookies or secrets:
 
 ```gitignore
 amazon_cookies.txt
+.env
 *.log
 __pycache__/
 *.pyc
