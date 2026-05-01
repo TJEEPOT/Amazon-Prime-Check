@@ -22,7 +22,7 @@ Since Amazon has no public API for consumer Prime status, the script mimics a lo
 - The following Python packages:
 
 ```bash
-pip install requests beautifulsoup4 python-dotenv
+pip install -r requirements.txt
 ```
 
 - A browser extension to export cookies in Netscape format, such as **[Get cookies.txt LOCALLY](https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc)** (Chrome / Firefox)
@@ -98,34 +98,6 @@ Open your crontab with `crontab -e` and add:
    - Program: `python`
    - Arguments: `C:\path\to\prime_check.py`
    - Start in: `C:\path\to\script\directory`
-
----
-
-## Project Structure
-
-```
-amazon-prime-checker/
-├── prime_check.py        # Main script
-├── amazon_cookies.txt    # Your exported cookies (DO NOT commit this)
-├── .env                  # Your secrets — webhook URL (DO NOT commit this)
-├── .env.example          # Template to copy for new setups
-├── .gitignore
-└── README.md
-```
-
----
-
-## .gitignore
-
-Make sure you never accidentally commit your cookies or secrets:
-
-```gitignore
-amazon_cookies.txt
-.env
-*.log
-__pycache__/
-*.pyc
-```
 
 ---
 
